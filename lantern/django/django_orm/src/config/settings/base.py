@@ -31,6 +31,8 @@ SECRET_KEY = env.str('SECRET_KEY', 'secret_key228')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', False)
 
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+
 
 # Application definition
 
@@ -81,8 +83,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -94,6 +94,9 @@ DATABASES = {
     }
 }
 
+
+# Password validation
+# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -128,10 +131,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+MEDIA_ROOT = env.str('MEDIA_ROOT', BASE_DIR)
+STATIC_ROOT = env.str('STATIC_ROOT', BASE_DIR)
 
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
