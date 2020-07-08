@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
 from apps.dealers.models import Dealer, City, Country
 
 
@@ -17,3 +16,4 @@ class CityAdmin(admin.ModelAdmin):
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
     list_display = ('name',)
+

@@ -53,6 +53,7 @@ class CarModel(models.Model):
         return self.name
 
 
+
 class CarEngine(models.Model):
     name = models.CharField(max_length=32, unique=True)
 
@@ -98,6 +99,7 @@ class Car(BaseDateAuditModel):
     slug = models.SlugField(max_length=75)
     number = models.CharField(max_length=16, unique=True)
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default=STATUS_PENDING, blank=True)
+
     dealer = models.ForeignKey('dealers.Dealer', on_delete=models.CASCADE, related_name='cars', null=True, blank=False)
     color = models.ForeignKey(to='Color', on_delete=models.SET_NULL, null=True, blank=False)
     model = models.ForeignKey(to='CarModel', on_delete=models.SET_NULL, null=True, blank=False)
@@ -111,8 +113,12 @@ class Car(BaseDateAuditModel):
     sitting_places = models.PositiveSmallIntegerField(default=4)
     first_registration_date = models.DateField(auto_now_add=False, null=True, blank=False)
 
-    # other fields ...
-    #
+
+    # dealer = models.ForeignKey('Dealer', on_delete=models.CASCADE, related_name='cars')
+
+    model = models.ForeignKey(to='CarModel', on_delete=models.SET_NULL, null=True, blank=False)
+    extra_title = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Title second part'))
+
 
     def save(self, *args, **kwargs):
         order_number_start = 7600000
@@ -142,7 +148,6 @@ class Car(BaseDateAuditModel):
             Index(fields=['status', ])
         ]
 
-
 class Property(models.Model):
     category = models.CharField(max_length=255, unique=True)
     name = models.CharField(max_length=255, unique=True)
@@ -151,3 +156,4 @@ class Property(models.Model):
 class CarProperty(models.Model):
     property = models.ForeignKey(to='Property', on_delete=models.DO_NOTHING, null=True, blank=False)
     car = models.ForeignKey(to='Car', on_delete=models.DO_NOTHING, null=True, blank=False)
+
