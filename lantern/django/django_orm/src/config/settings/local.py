@@ -1,4 +1,4 @@
-from .base import *  #noqa
+from .base import *  
 
 DATABASES = {
     'default': {
@@ -8,5 +8,5 @@ DATABASES = {
         'PASSWORD': env.str('POSTGRES_PASSWORD', 'car_dealer'),
         'HOST': env.str('DB_HOST', 'postgres'),
         'PORT': env.int('DB_PORT', 5432),
+
     }
-}
